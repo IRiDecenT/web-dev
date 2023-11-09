@@ -3,12 +3,41 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            [v-cloak]{
+                display: none;
+            }
+        </style>
         <title>vuejsexample</title>
     </head>
     <body>
-        <div id="myapp">
-            {{message}}
-            <span> {{msg}} </span>
+        <div id="myapp" v-cloak>
+            <div v-show="flag">
+                {{message}}
+                <span> {{msg}} </span>
+                <a v-bind:href="url">跳转百度</a>
+                <button v-on:click="myclick('按钮被点击')">点击按钮</button>
+                <!-- <form action="https://www.baidu.com" method="get">
+                    <input type="submit" name="submit" value="提交" v-on:click.prevent="myclick('按钮被点击')">
+                </form> -->
+            </div>
+
+            <div v-if="flag">
+                <button v-on:click="myclick('按钮被点击')">点击按钮</button>
+                <!-- <div>一</div>
+                <div>二</div>
+                <div>三</div> -->
+                <div v-for="n in num">{{n}}</div>
+            </div>
+
+            <div v-else>
+                <form action="https://www.baidu.com" method="get">
+                    <input type="submit" name="submit" value="提交" v-on:click.prevent="myclick('按钮被点击')">
+            </div>
+
+            <div>
+                <input type="text" v-model="iput">
+            </div>
         </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
@@ -17,7 +46,16 @@
             el: '#myapp',
             data:{
                 message: 'HelloWorld',
-                msg: "haha"
+                msg: "haha",
+                url: "https://baidu.com",
+                flag: true,
+                num: ["一", "二", "三", "四"],
+                iput: "初始值"
+            },
+            methods:{
+                myclick: function(str){
+                    alert(str)
+                }
             }
         })
     </script>
